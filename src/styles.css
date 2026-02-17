@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #006D81;
+  --color-primary-tint: #005F77;
+  --color-primary-shade: #1DACB9;
+}
+body {
+  @apply m-0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+@layer base {
+  input {
+    @apply w-full border border-primary-shade rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary;
+  }
+
+  button {
+    @apply disabled:bg-primary-shade disabled:cursor-not-allowed w-full bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-primary-tint focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight
+  }
+
+  h2 {
+    @apply text-3xl font-bold tracking-tight
+  }
+
+  h3 {
+    @apply text-2xl font-semibold tracking-tight
+  }
+
+  p {
+    @apply text-gray-700 text-sm;
+  }
+
+  a {
+    @apply text-primary hover:underline;
+  }
+
+}
