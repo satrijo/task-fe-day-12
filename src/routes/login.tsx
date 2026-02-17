@@ -1,8 +1,21 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import { useLogin } from "@/modules/auth/hooks/useLogin";
 
 export const Route = createFileRoute("/login")({
+    ssr: false,
+    loader: () => {
+        const token = localStorage.getItem("Bearer");
+        if (token) {
+            throw redirect({ to: "/" });
+        }
+        return { authenticated: false };
+    },
+    pendingComponent: () => (
+        <div className="h-screen flex items-center justify-center">
+            <span>Loading...</span>
+        </div>
+    ),
     component: RouteComponent,
 });
 

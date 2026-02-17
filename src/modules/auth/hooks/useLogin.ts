@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 import toast from "react-hot-toast";
 
 interface LoginSchema {
@@ -9,7 +9,7 @@ interface LoginSchema {
 
 export function useLogin() {
 	const redirect = useNavigate();
-
+	const router = useRouter();
 	return useMutation({
 		mutationKey: ["login"],
 		mutationFn: async ({ email, password }: LoginSchema) => {
@@ -35,12 +35,11 @@ export function useLogin() {
 			}
 			return response;
 		},
-		onSuccess: (response) => {
+		onSuccess: async (response) => {
 			localStorage.setItem("Bearer", response.data.accessToken);
+			await router.invalidate();
+			await redirect({ to: "/" });
 			toast.success("Login successful!");
-			setTimeout(() => {
-				redirect({ to: "/" });
-			}, 2000);
 		},
 		onError: (error) => {
 			const errorMessage =
